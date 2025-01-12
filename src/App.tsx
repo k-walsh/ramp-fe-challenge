@@ -28,7 +28,7 @@ export function App() {
   const loadAllTransactions = useCallback(
     async (loadMore?: Boolean) => {
       if (loadMore) {
-        transactionsByEmployeeUtils.invalidateData()
+        // transactionsByEmployeeUtils.invalidateData() // not needed to clear employee cache
         await paginatedTransactionsUtils.fetchAll()
       } else {
         setIsLoading(true)
@@ -38,13 +38,18 @@ export function App() {
         await paginatedTransactionsUtils.fetchAll()
       }
     },
-    [employeeUtils, paginatedTransactionsUtils, transactionsByEmployeeUtils]
+    [employeeUtils, paginatedTransactionsUtils]
   )
 
   const loadTransactionsByEmployee = useCallback(
     async (employeeId: string) => {
       paginatedTransactionsUtils.invalidateData()
-      await transactionsByEmployeeUtils.fetchById(employeeId)
+
+      if (employeeId === "all") {
+        await paginatedTransactionsUtils.fetchAll()
+      } else {
+        await transactionsByEmployeeUtils.fetchById(employeeId)
+      }
     },
     [paginatedTransactionsUtils, transactionsByEmployeeUtils]
   )

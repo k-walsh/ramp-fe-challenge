@@ -172,7 +172,9 @@ _This bug has 2 wrong behaviors that can be fixed with the same solution. It's a
 
 **Actual:** When you reach the end of the data, the **View More** button is still showing and you are still able to click the button. If you click it, the page crashes.
 
-# Bug 7: Approving a transaction won't persist the new value TODO:
+# Bug 7: Approving a transaction won't persist the new value
+
+--> didn't completely fix the discrepency between the cache and data constant defined in utils/requests
 
 _You need to fix some of the previous bugs in order to reproduce_
 

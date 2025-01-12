@@ -44,11 +44,10 @@ export const getTransactionsByEmployee = ({ employeeId }: RequestByEmployeeParam
     throw new Error("Employee id cannot be empty")
   }
 
-  if (employeeId === "all") {
-    return {data: data.transactions.slice(0, 5), nextPage: 5} // fixes bug 3
+  return {
+    data: data.transactions.filter((transaction) => transaction.employee.id === employeeId),
+    nextPage: null,
   }
-
-  return {data: data.transactions.filter((transaction) => transaction.employee.id === employeeId), nextPage: null}
 }
 
 export const setTransactionApproval = ({ transactionId, value }: SetTransactionApprovalParams): void => {
